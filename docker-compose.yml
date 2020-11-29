@@ -1,26 +1,21 @@
-# docker-compose-server
-docker-compose for all mandatory services like mongodb, redis, kafka, rabbitMQ
-
-docker-compose having following server configuration. 
-
-* mongoDB
-* redis
-* kafka
-* rabbitMQ
-
-Run below commands to start all server in docker container under same network. Connect your springboot service as requirement. 
-
-```commandline
-## Build and start the container
- docker-compose up --build
-
-## Stop and cleanup
-Command+c in MAC machine
- docker-compose down
-``` 
-
-```yaml
-# Redis
+version: '3'
+services:
+  #  user-profile-service:
+  #    build:
+  #      context: .
+  #      args:
+  #        version: 0.0.1
+  #      dockerfile: Dockerfile
+  #    depends_on:
+  #      - redis-server
+  #      - mongodb-server
+  #    ports:
+  #      - "8080:8080"
+  #    networks:
+  #      - spring-boot-profile-network
+  #    links:
+  #      - redis-server
+  #      - mongodb-server
   redis-server:
     image: redis
     command: [ "redis-server", "--protected-mode", "no" ]
@@ -29,10 +24,6 @@ Command+c in MAC machine
       - "6379:6379"
     networks:
       - spring-boot-profile-network
-```
-
-```yaml
-# Mongodb
   mongodb-server:
     image: mongo
     restart: always
@@ -44,10 +35,6 @@ Command+c in MAC machine
       - "27017:27017"
     networks:
       - spring-boot-profile-network
-```
-
-```yaml
-# RabbitMQ
   rabbitmq-server:
     image: rabbitmq:3-management
     hostname: localhost
@@ -64,10 +51,6 @@ Command+c in MAC machine
       - "5672:5672"
     networks:
       - spring-boot-profile-network
-```
-
-```yaml
-# Zookeeper and Kafka
   zookeeper:
     image: wurstmeister/zookeeper
     container_name: zookeeper
@@ -86,7 +69,7 @@ Command+c in MAC machine
       - zookeeper
     networks:
       - spring-boot-profile-network
-```
 
-
-
+networks:
+  spring-boot-profile-network:
+    driver: bridge
