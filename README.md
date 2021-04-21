@@ -13,11 +13,25 @@ Run below commands to start all server in docker container under same network. C
 ```commandline
 ## Build and start the container
  docker-compose up --build
+## up specific service
+docker-compose up --build $(<services.txt)
+
+services1 services2, etc
+ docker-compose up --build zookeeper kafka
+
+
 
 ## Stop and cleanup
 Command+c in MAC machine
  docker-compose down
 ``` 
+
+```commandline
+#Mongo cli
+docker exec -it <container-id> bash
+root@localhost:/# mongo
+root@localhost:/# db.auth('<user>','<pass>')
+```
 
 ```yaml
 # Redis
@@ -87,6 +101,3 @@ Command+c in MAC machine
     networks:
       - spring-boot-profile-network
 ```
-
-
-

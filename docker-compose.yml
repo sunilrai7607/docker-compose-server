@@ -19,7 +19,7 @@ services:
   redis-server:
     image: redis
     command: [ "redis-server", "--protected-mode", "no" ]
-    hostname: localhost
+    hostname: redis-server
     ports:
       - "6379:6379"
     networks:
@@ -29,8 +29,8 @@ services:
     restart: always
     hostname: localhost
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: test123
     ports:
       - "27017:27017"
     networks:
