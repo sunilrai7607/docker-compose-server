@@ -69,7 +69,16 @@ services:
       - zookeeper
     networks:
       - spring-boot-profile-network
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+    - 9411:9411
+    networks:
+      - trace
 
 networks:
+  trace:
+    driver: bridge
   spring-boot-profile-network:
     driver: bridge
